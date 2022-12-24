@@ -24,7 +24,7 @@ async function listContacts() {
 async function getContactById(contactId) {
   try {
     const contacts = await readContacts(contactsPath);
-    return contacts.filter(({ id }) => id === contactId);
+    return contacts.find(({ id }) => id === contactId);
   } catch (error) {
     console.error(error);
   }
@@ -54,6 +54,7 @@ async function addContact(name, email, phone) {
     const contacts = await readContacts(contactsPath);
     contacts.push(newContact);
     await writeContacts(contacts);
+    return newContact;
   } catch (error) {
     console.error(error);
   }
